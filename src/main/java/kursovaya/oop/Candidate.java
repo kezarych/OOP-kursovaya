@@ -40,4 +40,8 @@ public abstract class Candidate extends Person{
     public int getSalary(){
         return salary;
     }
+
+    public int getId(){
+        return id;
+    }
 }
