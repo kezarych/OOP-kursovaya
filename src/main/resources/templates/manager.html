@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Менеджер</title>
+</head>
+<body>
+    <h1>Менеджер</h1>
+
+    <form th:action="@{/manager}" th:method="get">
+        <label>
+            Категория
+            <select name="category">
+                <option value="Все">Все</option>
+                <option value="Junior">Junior</option>
+                <option value="Middle">Middle</option>
+                <option value="Senior">Senior</option>
+            </select>
+        </label>
+        <label>
+            Мин. балл
+            <input type="number" name="minScore" min="0"/>
+        </label>
+        <button type="submit">Показать</button>
+    </form>
+
+    <h2>Новые</h2>
+    <div class="card" th:each="candidate : ${newCandidates}">
+        <h3 th:text="${candidate.fullName}">Иван Иванов</h3>
+        <p>Категория: <strong th:text="${candidate.category}">Junior</strong></p>
+        <p>Английский: <span th:text="${candidate.englishLVL}">B2</span></p>
+        <p>
+            Программирование:
+            <span th:switch="${candidate.programmingLVL}">
+                <span th:case="JuniorMinus">Junior-</span>
+                <span th:case="Junior">Junior</span>
+                <span th:case="JuniorPlus">Junior+</span>
+                <span th:case="MiddleMinus">Middle-</span>
+                <span th:case="Middle">Middle</span>
+                <span th:case="MiddlePlus">Middle+</span>
+                <span th:case="SeniorMinus">Senior-</span>
+                <span th:case="Senior">Senior</span>
+                <span th:case="SeniorPlus">Senior+</span>
+            </span>
+        </p>
+        <p>Итоговый балл: <strong th:text="${candidate.totalScore}">17</strong></p>
+        <p>Подсказка менеджеру: <span th:text="${candidate.managerHint}">Высокий балл, можно брать</span></p>
+        <p>Рекомендация: <span th:text="${candidate.recommendation}">Стажировка с наставником</span></p>
+        <p>Запрашиваемая зарплата: <span th:text="${candidate.salary}">50000</span></p>
+        <p>Описание: <span th:text="${candidate.description}">Краткое описание кандидата</span></p>
+        <p>Этапы собеседования:</p>
+        <ul>
+            <li th:each="stage : ${candidate.interviewStage}" th:text="${stage}">HR-собеседование</li>
+        </ul>
+
+        <form th:action="@{/accept}" th:method="post">
+            <input type="hidden" name="id" th:value="${candidate.id}"/>
+            <button type="submit">Принят</button>
+        </form>
+    </div>
+
+    <h2>Принятые</h2>
+    <div class="card" th:each="candidate : ${acceptedCandidates}">
+        <h3 th:text="${candidate.fullName}">Пётр Петров</h3>
+        <p>Категория: <strong th:text="${candidate.category}">Middle</strong></p>
+        <p>Английский: <span th:text="${candidate.englishLVL}">C1</span></p>
+        <p>
+            Программирование:
+            <span th:switch="${candidate.programmingLVL}">
+                <span th:case="JuniorMinus">Junior-</span>
+                <span th:case="Junior">Junior</span>
+                <span th:case="JuniorPlus">Junior+</span>
+                <span th:case="MiddleMinus">Middle-</span>
+                <span th:case="Middle">Middle</span>
+                <span th:case="MiddlePlus">Middle+</span>
+                <span th:case="SeniorMinus">Senior-</span>
+                <span th:case="Senior">Senior</span>
+                <span th:case="SeniorPlus">Senior+</span>
+            </span>
+        </p>
+        <p>Итоговый балл: <strong th:text="${candidate.totalScore}">14</strong></p>
+        <p>Подсказка менеджеру: <span th:text="${candidate.managerHint}">Средний кандидат</span></p>
+        <p>Рекомендация: <span th:text="${candidate.recommendation}">Сразу на проект</span></p>
+        <p>Запрашиваемая зарплата: <span th:text="${candidate.salary}">80000</span></p>
+        <p>Описание: <span th:text="${candidate.description}">Краткое описание кандидата</span></p>
+        <p>Этапы собеседования:</p>
+        <ul>
+            <li th:each="stage : ${candidate.interviewStage}" th:text="${stage}">HR-собеседование</li>
+        </ul>
+    </div>
+
+    <p><a th:href="@{/}" href="/">На главную</a></p>
+</body>
+</html>

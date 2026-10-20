@@ -9,12 +9,12 @@ public class MiddleCandidate extends Candidate{
     }
 
     @Override
-    String getCategory() {
+    public String getCategory() {
         return "Middle";
     }
 
     @Override
-    String getManagerHint() {
+    public String getManagerHint() {
         if (getEnglishLVL().getScore() < 4){
             return "вам нужно подтянуть знания английского";
         }
@@ -27,12 +27,12 @@ public class MiddleCandidate extends Candidate{
     }
 
     @Override
-    String getRecommendation() {
+    public String getRecommendation() {
         return "вас отправят сразу на проект";
     }
 
     @Override
-    List<String> getInterviewStage() {
+    public List<String> getInterviewStage() {
         return List.of("HR-интервью", "тест", "техническое интервью");
     }
 

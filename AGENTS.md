@@ -10,7 +10,8 @@
 - Никаких паттернов Visitor и двойной диспетчеризации, только обычное наследование и переопределение методов.
 
 ## Правила работы со мной
-- Сам НИЧЕГО не пишу и не создаю, только если я явно попрошу.
+- Я — учитель: НЕ пишу код за Максима и НЕ показываю целиком готовый исход (метод/класс целиком). Объясняю, подсказываю, направляю, привожу маленькие примеры и фрагменты, чтобы Максим сам писал код и понимал его.
+- Сам НИЧЕГО не пишу и не создаю в файлах, только если я явно попрошу.
 - Не опираться жёстко на описанную информацию: я делаю под себя и могу менять всё на ходу.
 
 ## Стек
@@ -82,19 +83,28 @@ id (UUID, генерируется автоматически), имя, фами
 - Enum'ы называются EnglishLVL и ProgrammingLVL (не EnglishLevel/ProgrammingLevel).
 - Абстрактный метод списка этапов называется getInterviewStage() (единственное число).
 - getFullName() возвращает firstName + " " + lastName.
+- Интерфейс CandidateRepository НЕ делаем: только класс FileCandidateRepository, сервис работает с ним напрямую (без интерфейса).
+- На странице менеджера сортировка/группировка кандидатов по категории НЕ нужна (убрана из ТЗ).
 
 ## Статус разработки (актуально на последнюю сессию)
 Готово:
 - Person (абстрактный, имя, фамилия, getFullName)
 - Manager extends Person
 - EnglishLVL, ProgrammingLVL (enum со score)
-- Candidate (абстрактный): конструктор с полями id/имя/фамилия/описание/английский/программирование/зарплата, геттеры getEnglishLVL/getProgrammingLVL, абстрактные методы getTotalScore/getCategory/getManagerHint/getRecommendation/getInterviewStage
-- JuniorCandidate: getTotalScore реализован (eng*2+prog), остальные 4 абстрактных метода ещё пустые ("" / List.of())
+- Candidate (абстрактный): конструктор с полями id/имя/фамилия/описание/английский/программирование/зарплата, геттеры getEnglishLVL/getProgrammingLVL/getDescription/getSalary/getId, абстрактные методы getTotalScore/getCategory/getManagerHint/getRecommendation/getInterviewStage
+- JuniorCandidate — полностью готов: eng*2+prog, категория Junior, hint (по баллу <8), рекомендация «стажировка с наставником», этапы (HR-собеседование, тест)
+- MiddleCandidate — полностью готов: eng+prog, категория Middle, hint (по англ<4 / прог<7), рекомендация «сразу на проект», этапы (HR, тест, техническое)
+- SeniorCandidate — полностью готов: eng+prog*2, категория Senior (баг с "Middle" исправлен), рекомендация «рассмотреть на роль тим лида», этапы (HR, тест, техническое, системный дизайн)
+- CandidateChooser (фабрика): createCandidate возвращает Candidate по диапазонам баллов программирования (3-5 Junior, 6-8 Middle, 9-11 Senior)
+- Шаблоны (Thymeleaf, только вёрстка, бэкенд ещё не подключён): index.html, candidate.html, manager.html + минимальный static/style.css. Имена в модели: newCandidates, acceptedCandidates. URL кнопки «Принят» — POST /accept. Поля формы: firstName, lastName, description, englishLVL, programmingLVL, salary.
 
-В плане (по порядку):
-1. Доделать JuniorCandidate: getCategory, getManagerHint, getRecommendation, getInterviewStage (тест, HR-интервью)
-2. MiddleCandidate (eng+prog; тест, HR, техническое интервью) и SeniorCandidate (eng+prog*2; тест, HR, техническое, системный дизайн)
-3. CandidateFactory
-4. CandidateRepository + FileCandidateRepository
-5. CandidateService (перегрузки filter)
-6. Контроллеры + шаблоны (index.html, candidate.html, manager.html)
+В процессе (шаг 4 — FileCandidateRepository):
+- Класс создан (@Repository), есть поле Path path = Path.of("candidates.txt")
+- save() готов и корректен: строка = id|имя|фамилия|описание|englishLVL|programmingLVL|зарплата, Files.write с CREATE+APPEND, try/catch → throw RuntimeException(e)
+- НЕ сделано: findAll() (пока заглушка lines()), accept(int id), findAcceptedIds(), поле Path acceptedPath = Path.of("accepted.txt")
+- Нужен импорт java.util.ArrayList
+
+В плане дальше:
+1. Дописать FileCandidateRepository: findAll, accept, findAcceptedIds (шаг 4)
+2. CandidateService (перегрузки filter) (шаг 5)
+3. Контроллеры (MainController, CandidateController, ManagerController) + подключение шаблонов (шаг 6)

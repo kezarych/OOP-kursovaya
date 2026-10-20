@@ -9,17 +9,17 @@ public class JuniorCandidate extends Candidate{
     }
 
     @Override
-    int getTotalScore() {
+    public int getTotalScore() {
         return getEnglishLVL().getScore() * 2 + getProgrammingLVL().getScore();
     }
 
     @Override
-    String getCategory() {
+    public String getCategory() {
         return "Junior";
     }
 
     @Override
-    String getManagerHint() {
+    public String getManagerHint() {
         if(getTotalScore() < 8){
             return "кандидатуре стоит подтянуть свои навыки";
         }
@@ -29,12 +29,12 @@ public class JuniorCandidate extends Candidate{
     }
 
     @Override
-    String getRecommendation() {
+    public String getRecommendation() {
         return "стажировка с наставником";
     }
 
     @Override
-    List<String> getInterviewStage() {
+    public List<String> getInterviewStage() {
         return List.of("HR-собеседование", "тест");
     }
 

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Подбор кадров</title>
+</head>
+<body>
+    <h1>Система поддержки деятельности менеджера по подбору кадров</h1>
+    <p>Выберите роль:</p>
+    <p>
+        <a class="btn" th:href="@{/candidate}" href="/candidate">Я кандидат</a>
+        <a class="btn" th:href="@{/manager}" href="/manager">Я менеджер</a>
+    </p>
+</body>
+</html>

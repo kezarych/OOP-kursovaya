@@ -9,17 +9,17 @@ public class SeniorCandidate extends Candidate{
     }
 
     @Override
-    int getTotalScore() {
+    public int getTotalScore() {
         return getEnglishLVL().getScore() + getProgrammingLVL().getScore()*2;
     }
 
     @Override
-    String getCategory() {
+    public String getCategory() {
         return "Senior";
     }
 
     @Override
-    String getManagerHint() {
+    public String getManagerHint() {
         if(getEnglishLVL().getScore() < 4){
             return "вам следует углубить знание английского";
         }
@@ -32,12 +32,12 @@ public class SeniorCandidate extends Candidate{
     }
 
     @Override
-    String getRecommendation() {
+    public String getRecommendation() {
         return "рассмотреть на роль тим лида";
     }
 
     @Override
-    List<String> getInterviewStage() {
+    public List<String> getInterviewStage() {
         return List.of("HR-интервью", "тест","техническое интервью","системный дизайн");
     }
 

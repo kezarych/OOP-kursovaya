@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Анкета кандидата</title>
+</head>
+<body>
+    <h1>Анкета кандидата</h1>
+
+    <form th:action="@{/candidate}" th:method="post">
+        <label>
+            Имя
+            <input type="text" name="firstName" required/>
+        </label>
+
+        <label>
+            Фамилия
+            <input type="text" name="lastName" required/>
+        </label>
+
+        <label>
+            Описание
+            <textarea name="description" rows="4" required></textarea>
+        </label>
+
+        <label>
+            Уровень английского
+            <select name="englishLVL">
+                <option value="A1">A1</option>
+                <option value="A2">A2</option>
+                <option value="B1">B1</option>
+                <option value="B2">B2</option>
+                <option value="C1">C1</option>
+                <option value="C2">C2</option>
+            </select>
+        </label>
+
+        <label>
+            Уровень программирования
+            <select name="programmingLVL">
+                <option value="JuniorMinus">Junior-</option>
+                <option value="Junior">Junior</option>
+                <option value="JuniorPlus">Junior+</option>
+                <option value="MiddleMinus">Middle-</option>
+                <option value="Middle">Middle</option>
+                <option value="MiddlePlus">Middle+</option>
+                <option value="SeniorMinus">Senior-</option>
+                <option value="Senior">Senior</option>
+                <option value="SeniorPlus">Senior+</option>
+            </select>
+        </label>
+
+        <label>
+            Запрашиваемая зарплата
+            <input type="number" name="salary" min="0" required/>
+        </label>
+
+        <button type="submit">Отправить анкету</button>
+    </form>
+
+    <p><a th:href="@{/}" href="/">На главную</a></p>
+</body>
+</html>

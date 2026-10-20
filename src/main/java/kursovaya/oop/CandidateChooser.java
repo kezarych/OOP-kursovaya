@@ -1,5 +1,8 @@
 package kursovaya.oop;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class CandidateChooser {
 
     public Candidate createCandidate(String firstName, String lastName, int id, int salary, EnglishLVL englishLVL, ProgrammingLVL programmingLVL, String description){

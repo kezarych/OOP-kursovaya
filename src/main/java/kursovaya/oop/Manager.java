@@ -6,5 +6,4 @@ public class Manager extends Person{
         super(firstName, lastName);
     }
 
-
 }

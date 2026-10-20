@@ -25,9 +25,7 @@ public abstract class Candidate extends Person{
     abstract String getRecommendation();
     abstract List<String> getInterviewStage();
 
-    public EnglishLVL getEnglishLVL(){
-        return englishLVL;
-    }
+    public EnglishLVL getEnglishLVL() { return englishLVL; }
 
     public ProgrammingLVL getProgrammingLVL(){
         return programmingLVL;
